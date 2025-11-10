@@ -1,0 +1,97 @@
+﻿@model FrontEnd.Models.ProductListFilterViewModel
+@{
+    ViewData["Title"] = "Lista de Productos";
+}
+
+<h2 class="mb-4">Lista de Productos</h2>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="Buscar producto..."
+               asp-for="Search" value="@Model.Search" />
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary" onclick="searchProducts()">Buscar</button>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @Model.ErrorMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Fecha de Creación</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Products?.Items?.Any() == true)
+        {
+            int index = (Model.Products.CurrentPage - 1) * Model.Products.PageSize + 1;
+            foreach (var product in Model.Products.Items)
+            {
+                <tr>
+                    <td>@index</td>
+                    <td>@product.Code</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>@product.Quantity</td>
+                    <td>@product.CreatedAt.ToString("dd/MM/yyyy")</td>
+                </tr>
+                index++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center">No se encontraron productos.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Products != null && Model.Products.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.Products.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="#" onclick="goToPage(@(Model.Products.CurrentPage - 1))">Anterior</a>
+            </li>
+
+            @for (int i = 1; i <= Model.Products.TotalPages; i++)
+            {
+                <li class="page-item @(Model.Products.CurrentPage == i ? "active" : "")">
+                    <a class="page-link" href="#" onclick="goToPage(@i)">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(Model.Products.CurrentPage == Model.Products.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="#" onclick="goToPage(@(Model.Products.CurrentPage + 1))">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+}
+
+@section Scripts {
+    <script>
+        function searchProducts() {
+            const search = document.querySelector('input[asp-for="Search"]').value;
+            window.location.href = `?search=${encodeURIComponent(search)}`;
+        }
+
+        function goToPage(page) {
+            const search = document.querySelector('input[asp-for="Search"]').value;
+            window.location.href = `?search=${encodeURIComponent(search)}&page=${page}`;
+        }
+    </script>
+}

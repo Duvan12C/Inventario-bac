@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FrontEnd</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FrontEnd.styles.css" asp-append-version="true" />
+</head>
+<body>
+    @{
+        var token = Context.Session.GetString("token");
+        var username = Context.Session.GetString("username");
+    }
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo.jpg" alt="Logo" style="height:40px;" />
+                </a>
+
+                <!-- Botón para mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (!string.IsNullOrEmpty(token))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Productos</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="d-flex ms-auto">
+                        @if (string.IsNullOrEmpty(token))
+                        {
+                            <a class="btn  btn-personal-first"
+                               asp-area="" asp-controller="Account" asp-action="Register"
+                               >
+                                Abrir cuenta
+                            </a>
+
+                            <a class="btn btn-personal-second"
+                               asp-area="" asp-controller="Account" asp-action="Login">
+                                Inventario en línea
+                            </a>
+                        }
+                        else
+                        {
+                            <!-- Dropdown usuario -->
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hola, @username
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li>
+                                        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="m-0 p-0">
+                                            <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted" style="background-color: #E4002B; color: white; padding: 15px 0; text-align: center;">
+        <div class="container text-white">
+            &copy; 2025 - FrontEnd -
+            <a href="https://github.com/Duvan12C" target="_blank" style="color: white; text-decoration: underline;">
+                Mi GitHub
+            </a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
