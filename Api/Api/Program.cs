@@ -77,11 +77,11 @@ builder.Services.AddAutoMapper(cfg =>
 });
 
 
-// validation
+//Validaciones
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterRequestDtoValidator>();
 
 
-// Add services to the container.
+//Servicios
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -101,7 +101,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Mi API", Version = "v1" });
 
-    // Definir esquema de seguridad JWT
+    //JWT
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -112,7 +112,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Ingrese '{token}' (sin comillas) para autenticar"
     });
 
-    // Indicar que todas las operaciones requieren JWT
+    
     c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
     {
         {
@@ -155,7 +155,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

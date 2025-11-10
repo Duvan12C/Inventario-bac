@@ -21,7 +21,6 @@ namespace FrontEnd.Services
 
         private void AddJwtToken()
         {
-            // Limpiar header antes
             _httpClient.DefaultRequestHeaders.Authorization = null;
 
             var token = _httpContextAccessor.HttpContext?.Session.GetString("token");
@@ -60,7 +59,6 @@ namespace FrontEnd.Services
             var response = await _httpClient.GetAsync(url);
             var json = await response.Content.ReadAsStringAsync();
 
-            // Intentar deserializar aunque sea 400
             return JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
