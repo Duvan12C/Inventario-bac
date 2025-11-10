@@ -37,10 +37,9 @@ namespace Api.Helpers
                 Data = null
             };
 
-            // Detectar errores de conexión a SQL Server
             if (ex is SqlException || ex.InnerException is SqlException || ex is DbUpdateException)
             {
-                context.Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable; // 503
+                context.Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable; 
                 response.Message = "No se puede conectar a la base de datos. Intenta más tarde.";
             }
             else

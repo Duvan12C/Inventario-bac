@@ -13,7 +13,7 @@ namespace Api.Entities
         public decimal Total { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        // 🔗 Relaciones
+        // Relaciones
         public Employee? Seller { get; set; }
         public ICollection<SaleDetail>? SaleDetails { get; set; }
     }

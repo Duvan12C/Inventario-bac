@@ -15,7 +15,6 @@ namespace Api.Services
         {
             try
             {
-                // Ejecuta el SP y obtiene el ID de la venta creada
                 var idSale = await repo.RegisterSaleCartAsync(dto.EmployeeId, dto.Products);
 
                 if (idSale == 0)
@@ -23,7 +22,6 @@ namespace Api.Services
                     return ErrorResponse<SaleResponseDto>("No se pudo registrar la venta");
                 }
 
-                // Trae la venta y detalle desde la BD
                 var sale = await repo.GetSaleWithDetailsAsync(idSale);
                 SaleResponseDto saleDto = mapper.Map<SaleResponseDto>(sale);
 

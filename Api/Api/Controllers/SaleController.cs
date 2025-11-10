@@ -17,10 +17,8 @@ namespace Api.Controllers
         {
             get
             {
-                // Intenta primero con el claim "sub"
                 var claimValue = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-                // Si no lo encuentra, prueba con NameIdentifier
                 if (string.IsNullOrEmpty(claimValue))
                     claimValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
 

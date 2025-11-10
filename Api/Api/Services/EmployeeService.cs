@@ -16,44 +16,26 @@ namespace Api.Services
                 var user = await repo.GetByEmailAsync(dto.Email);
                 if (user == null)
                 {
-                    return new ApiResponse<LoginResponseDto>
-                    {
-                        Success = false,
-                        Message = "Usuario o contraseña incorrectos",
-                        Data = null
-                    };
+                    return ErrorResponse<LoginResponseDto>("Usuario o contraseña incorrectos");
                 }
 
                 // Verificación de contraseña
                 bool isPasswordValid = BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
                 if (!isPasswordValid)
                 {
-                    return new ApiResponse<LoginResponseDto>
-                    {
-                        Success = false,
-                        Message = "Usuario o contraseña incorrectos",
-                        Data = null
-                    };
+                    return ErrorResponse<LoginResponseDto>("Usuario o contraseña incorrectos");
                 }
 
                 // Generar JWT
                 var token = jwt.GenerateJwtToken(user);
 
-                return new ApiResponse<LoginResponseDto>
-                {
-                    Success = true,
-                    Message = "Login exitoso",
-                    Data = new LoginResponseDto { Token = token, Nombre = user.Name }
-                };
+                return SuccessResponse(new LoginResponseDto { Token = token, Nombre = user.Name }, "Login exitoso");
+
             }
             catch (Exception ex)
             {
-                return new ApiResponse<LoginResponseDto>
-                {
-                    Success = false,
-                    Message = "Ocurrió un error al iniciar sesión. Intenta de nuevo más tarde.",
-                    Data = null
-                };
+                return ErrorResponse<LoginResponseDto>("Ocurrió un error al iniciar sesión. Intenta de nuevo más tarde.");
+
             }
         }
 
@@ -67,28 +49,14 @@ namespace Api.Services
                 employee.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.PasswordHash);
                 var result = await repo.RegisterEmployeeAsync(employee);
 
-
                 var token = jwt.GenerateJwtToken(result);
 
-                return new ApiResponse<LoginResponseDto>
-                {
-                    Success = true,
-                    Message = "Usuario registrado correctamente",
-                    Data = new LoginResponseDto
-                    {
-                        Token = token,
-                        Nombre = result.Name,
-                    }
-                };
+                return SuccessResponse(new LoginResponseDto { Token = token, Nombre = result.Name }, "Usuario registrado correctamente");
+
             }
             catch
             {
-                return new ApiResponse<LoginResponseDto>
-                {
-                    Success = false,
-                    Message = "Ocurrió un error al registrar el usuario. Intenta de nuevo más tarde.",
-                    Data = null
-                };
+                return ErrorResponse<LoginResponseDto>("Ocurrió un error al registrar el usuario. Intenta de nuevo más tarde.");
             }
         }
 

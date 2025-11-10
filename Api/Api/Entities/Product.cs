@@ -18,7 +18,7 @@ namespace Api.Entities
         public int? UpdatedBy { get; set; }
         public string? Code { get; set; } = string.Empty;
 
-        // 🔗 Relaciones
+        // Relaciones
         public Employee? EmployeeCreated { get; set; }
         public Employee? EmployeeUpdated { get; set; }
 

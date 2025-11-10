@@ -56,12 +56,7 @@ namespace Api.Services
             }
             catch (Exception ex)
             {
-                // 🔍 Podés loguear el error si querés:
-                // logger.LogError(ex, "Error actualizando producto");
-
-                return ErrorResponse<ProductResponseDto>(
-                    "Ocurrió un error al actualizar el producto. Intenta de nuevo más tarde."
-                );
+                return ErrorResponse<ProductResponseDto>("Ocurrió un error al actualizar el producto. Intenta de nuevo más tarde");
             }
         }
 
@@ -75,21 +70,13 @@ namespace Api.Services
 
                 ProductResponseDto productDto = mapper.Map<ProductResponseDto>(result);
 
-                return new ApiResponse<ProductResponseDto>
-                {
-                    Success = true,
-                    Message = "Producto eliminado correctamente",
-                    Data = productDto
-                };
+                return SuccessResponse(productDto, "Producto eliminado correctamente");
+
             }
             catch (Exception ex)
             {
-                return new ApiResponse<ProductResponseDto>
-                {
-                    Success = false,
-                    Message = "Ocurrió un error al eliminar el producto. Intenta de nuevo más tarde.",
-                    Data = null
-                };
+                return ErrorResponse<ProductResponseDto>("Ocurrió un error al eliminar el producto. Intenta de nuevo más tarde.");
+
             }
         }
 
@@ -111,21 +98,13 @@ namespace Api.Services
                     Items = productDtos
                 };
 
-                return new ApiResponse<PagedResult<ProductResponseDto>>
-                {
-                    Success = true,
-                    Message = "Lista de productos obtenida correctamente",
-                    Data = pagedResponse
-                };
+                return SuccessResponse(pagedResponse, "Lista de productos obtenida correctamente");
+
             }
             catch (Exception ex)
             {
-                return new ApiResponse<PagedResult<ProductResponseDto>>
-                {
-                    Success = false,
-                    Message = $"Error al obtener la lista de productos: {ex.Message}",
-                    Data = null
-                };
+                return ErrorResponse<PagedResult<ProductResponseDto>>("Error al obtener la lista de productos: {ex.Message}");
+
             }
         }
 
@@ -138,21 +117,12 @@ namespace Api.Services
 
                 ProductResponseDto productDto = mapper.Map<ProductResponseDto>(result);
 
-                return new ApiResponse<ProductResponseDto>
-                {
-                    Success = true,
-                    Message = "Producto obetenido correctamente",
-                    Data = productDto
-                };
+                return SuccessResponse(productDto, "Producto obetenido correctamente");
+
             }
             catch (Exception ex)
             {
-                return new ApiResponse<ProductResponseDto>
-                {
-                    Success = false,
-                    Message = "Ocurrió un error al obtener el producto. Intenta de nuevo más tarde.",
-                    Data = null
-                };
+                return ErrorResponse<ProductResponseDto>("Ocurrió un error al obtener el producto. Intenta de nuevo más tarde.");
             }
         }
 

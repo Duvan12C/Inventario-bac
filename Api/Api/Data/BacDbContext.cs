@@ -34,21 +34,18 @@ namespace Api.Data
                 .HasForeignKey(p => p.UpdatedBy)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Sale -> Employee (vendedor)
             modelBuilder.Entity<Sale>()
                 .HasOne(s => s.Seller)
                 .WithMany(e => e.Sales)
                 .HasForeignKey(s => s.IdSeller)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // SaleDetail -> Sale
             modelBuilder.Entity<SaleDetail>()
                 .HasOne(sd => sd.Sale)
                 .WithMany(s => s.SaleDetails)
                 .HasForeignKey(sd => sd.IdSale)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // SaleDetail -> Product
             modelBuilder.Entity<SaleDetail>()
                 .HasOne(sd => sd.Product)
                 .WithMany(p => p.SaleDetails)
