@@ -1,5 +1,6 @@
 using FrontEnd.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +32,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+var supportedCultures = new[] { new CultureInfo("es-ES") };
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("es-ES"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+});
+
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -43,7 +52,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession(); // Aquí sí va después de Build
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

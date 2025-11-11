@@ -1,0 +1,47 @@
+﻿@model FrontEnd.Models.ProductCreateEditViewModel
+
+<div>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p class="mb-0">@error.ErrorMessage</p>
+            }
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <form id="createForm" method="post" asp-action="Create" asp-controller="Product">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Code" class="form-label required"></label>
+            <input asp-for="Code" class="form-control" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label required"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label required"></label>
+            <input asp-for="Price" type="number" step="0.01" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Quantity" class="form-label required"></label>
+            <input asp-for="Quantity" type="number" step="1" class="form-control" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-personal-second-two">Guardar</button>
+        </div>
+    </form>
+</div>

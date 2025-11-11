@@ -31,6 +31,7 @@ namespace FrontEnd.Services
         }
 
 
+
         public async Task<T?> GetAsync<T>(string endpoint, bool useToken = false)
         {
             if (useToken)
@@ -74,6 +75,23 @@ namespace FrontEnd.Services
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync($"{_baseUrl}/{endpoint}", content);
+            var responseJson = await response.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<TResponse>(responseJson, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+        }
+
+        public async Task<TResponse?> PutAsync<TRequest, TResponse>(string endpoint, TRequest data, bool useToken = false)
+        {
+            if (useToken)
+                AddJwtToken();
+
+            var json = JsonSerializer.Serialize(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync($"{_baseUrl}/{endpoint}", content);
             var responseJson = await response.Content.ReadAsStringAsync();
 
             return JsonSerializer.Deserialize<TResponse>(responseJson, new JsonSerializerOptions

@@ -1,0 +1,25 @@
+﻿@model FrontEnd.Models.ProductCreateEditViewModel
+
+<form id="updateForm" method="post" asp-action="Update" asp-controller="Product">
+    <input hidden asp-for="IdProduct" class="form-control" />
+
+    <div class="mb-3">
+        <label asp-for="Code" class="form-label"></label>
+        <input asp-for="Code" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Quantity" class="form-label"></label>
+        <input asp-for="Quantity" class="form-control" />
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-personal-second-two">Guardar</button>
+    </div>
+</form>

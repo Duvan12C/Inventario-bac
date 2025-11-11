@@ -55,3 +55,49 @@ label.required::after {
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2)
 }
+
+    .btn-personal-second:hover {
+        background-color: #0D5A8C;
+        color: white !important;
+    }
+
+.btn-personal-second-two {
+    background-color: #1075BB;
+    color: white;
+    border: 1px solid #1075BB;
+    width: 100px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2)
+}
+
+.btn-personal-second-two {
+    background-color: #0D5A8C;
+    color: white !important;
+}
+.btn-personal-green {
+    background-color: #28A745; 
+    color: white;
+    border: 1px solid #28A745;
+    width: 80px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+    .btn-personal-green:hover {
+        background-color: #218838;
+        color: white !important;
+    }
+
+    .btn-personal-green i {
+        margin-right: 5px; 
+    }

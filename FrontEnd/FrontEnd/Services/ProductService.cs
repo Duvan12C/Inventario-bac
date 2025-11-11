@@ -27,6 +27,25 @@ namespace FrontEnd.Services
             return await _apiClient.GetListAsync<ApiResponse<PagedResult<ProductResponseDto>>>("Product/list", query, true);
         }
 
+        public async Task<ApiResponse<ProductResponseDto>?> CreateAsync(ProductCreateEditViewModel model)
+        {
+            var response = await _apiClient.PostAsync<ProductCreateEditViewModel, ApiResponse<ProductResponseDto>>("Product/create", model, true);
+            return response;
+        }
+
+        public async Task<ApiResponse<ProductResponseDto>?> UpdateAsync(ProductCreateEditViewModel model)
+        {
+            var response = await _apiClient.PutAsync<ProductCreateEditViewModel, ApiResponse<ProductResponseDto>>("Product/update", model, true);
+            return response;
+        }
+
+
+        public async Task<ApiResponse<ProductResponseDto>?> GetByIdAsync(int id)
+        {
+            string endpoint = $"Product/{id}";
+            return await _apiClient.GetAsync<ApiResponse<ProductResponseDto>>(endpoint, useToken: true);
+        }
+
 
     }
 }

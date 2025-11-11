@@ -1,0 +1,56 @@
+﻿@model FrontEnd.Models.ProductListFilterViewModel
+@using System.Globalization
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Fecha de Creación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Products?.Items?.Any() == true)
+        {
+            int index = (Model.Products.CurrentPage - 1) * Model.Products.PageSize + 1;
+            foreach (var product in Model.Products.Items)
+            {
+                <tr>
+                    <td>@product.IdProduct</td>
+                    <td>@product.Code</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price.ToString("C", CultureInfo.CreateSpecificCulture("en-US"))</td>
+                    <td>@product.Quantity</td>
+                    <td>@product.CreatedAt.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editModal"
+                                data-id="@product.IdProduct"
+                                title="Editar">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteModal"
+                                data-id="@product.IdProduct"
+                                title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                index++;
+            }
+        }
+        else
+        {
+            <tr><td colspan="7" class="text-center">No se encontraron productos.</td></tr>
+        }
+    </tbody>
+</table>
+
+

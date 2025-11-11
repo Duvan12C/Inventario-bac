@@ -47,7 +47,6 @@ namespace FrontEnd.Controllers
             var token = HttpContext.Session.GetString("token");
             if (!string.IsNullOrEmpty(token))
             {
-                // No hay token → redirigir a login
                 return RedirectToAction("Index", "Product");
             }
             return View();
@@ -70,7 +69,6 @@ namespace FrontEnd.Controllers
                 return RedirectToAction("Index", "Product");
             }
 
-            // Mostrar mensaje que viene del backend
             ModelState.AddModelError("", response?.Message ?? "Error al iniciar sesión");
             return View(model);
         }

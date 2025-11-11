@@ -35,7 +35,7 @@ namespace Api.Controllers
         [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult<ApiResponse<ProductResponseDto>>> Register(ProductRequestDto dto)
-        {
+         {
             if (UserId == null)
                 return Unauthorized(ErrorResponse<ProductResponseDto>("No se pudo identificar el usuario."));
 
@@ -49,7 +49,7 @@ namespace Api.Controllers
         }
 
 
-
+         
         [Authorize]
         [HttpPut("update")]
         public async Task<ActionResult<ApiResponse<ProductResponseDto>>> Update(ProductRequestDto dto)
