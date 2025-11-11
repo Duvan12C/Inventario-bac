@@ -50,12 +50,9 @@ Las pendientes se centran en el desarrollo de la interfaz de usuario y los módu
 
 ### ❌ Funcionalidad Pendiente (Frontend y Reportes)
 
-1.  **CRUD de Inventario (Productos):** La interfaz de usuario (Front-end) y la lógica de consumo para **Crear, Actualizar y Eliminar** productos.
+1.  **CRUD de Inventario (Productos):** La interfaz de usuario (Front-end) y la lógica de consumo para **Ventas** productos.
 2.  **Módulo de Venta (Front-end):**
-    * Lógica para la **búsqueda de productos por código** en la interfaz.
-    * Lógica para realizar **cálculos en pantalla** (IVA, totales) al agregar productos.
-    * Consumo del **Endpoint de Venta** implementado en el API para finalizar la transacción.
-3.  **Manejo de Errores y Notificaciones** para mejorar la experiencia del usuario.
+    * Lógica para la **venta desde el frontend** en la interfaz.
 4.  Generación de **Reportes PDF y Excel** de ventas realizadas.
 
 ## ✍️ Nota Final y Agradecimiento
